@@ -5,4 +5,5 @@ services:
 
 
 script:
-  - docker run httpd:latest
+  - docker run -it -p 8000:8000 -e "SPLUNK_PASSWORD=<password>" -e "SPLUNK_START_ARGS=--accept-license" splunk/splunk:latest
+

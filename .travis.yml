@@ -1,9 +1,16 @@
 sudo: required
+
+language: node_js
+
 services:
   - docker
 
-before_install:
-  - docker build -t rtoledoo/docker-react -f Dockerfile.dev .
+env:
+  - IMAGE_NAME="btodhunter/anchore-ci-demo" IMAGE_TAG="travisci"
 
 script:
-  - docker run -e CI=true rtoledoo/docker-react npm run test
+  - docker build -t "${IMAGE_NAME}:ci" .
+  - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- "${IMAGE_NAME}:ci"
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+  - docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
+  - docker push "${IMAGE_NAME}:${IMAGE_TAG}"

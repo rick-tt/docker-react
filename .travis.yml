@@ -5,3 +5,16 @@ services:
 
 script:
   - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -p node:10.8.0-jessie
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker"
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-west-2-462752176734"
+  bucket_path: "docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"

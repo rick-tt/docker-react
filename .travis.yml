@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -p alpine:latest
+  - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -p node:10.8.0-jessie

@@ -1,21 +1,10 @@
 sudo: required
 
 language: node_js
-node_js:
-  - 7
-
 
 
 services:
   - docker
 
-env:
-  - IMAGE_NAME="rtoledoo/newpage" IMAGE_TAG="newpage"
-
 script:
-  - docker build -t "${IMAGE_NAME}:ci" .
-  - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- "${IMAGE_NAME}:ci"
-  - echo Letmeindocker11 | docker login -u rtoledoo --password-stdin
-  - docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
-  - docker push "${IMAGE_NAME}:${IMAGE_TAG}"
-
+  - curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -p alpine:latest

@@ -10,7 +10,7 @@ services:
   - docker
 
 env:
-  - IMAGE_NAME="btodhunter/anchore-ci-demo" IMAGE_TAG="travisci"
+  - IMAGE_NAME="rtoledoo/newpage" IMAGE_TAG="newpage"
 
 script:
   - docker build -t "${IMAGE_NAME}:ci" .
